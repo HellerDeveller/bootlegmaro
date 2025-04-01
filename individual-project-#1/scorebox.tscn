@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsdv32xqkc8df"]
+
+[ext_resource type="Script" path="res://scorebox.gd" id="1_y371d"]
+[ext_resource type="Texture2D" uid="uid://erxq36xjmjy2" path="res://tiles.png" id="2_qvacn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sin0c"]
+size = Vector2(64, 64)
+
+[node name="scorebox" type="StaticBody2D" groups=["scorebox"]]
+script = ExtResource("1_y371d")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["scorebox"]]
+texture = ExtResource("2_qvacn")
+hframes = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sin0c")

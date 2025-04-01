@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://dd27a300biqqn"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_dkx2d"]
+[ext_resource type="Texture2D" uid="uid://buyvrn2a1hehi" path="res://animations.png" id="1_krlmn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uun5t"]
+atlas = ExtResource("1_krlmn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_206h2"]
+atlas = ExtResource("1_krlmn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ym0oy"]
+atlas = ExtResource("1_krlmn")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ukub"]
+atlas = ExtResource("1_krlmn")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1km0"]
+atlas = ExtResource("1_krlmn")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h4puk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uun5t")
+}],
+"loop": true,
+"name": &"airborne",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_206h2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ym0oy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ukub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1km0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ukub")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvjtb"]
+size = Vector2(49, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gis72"]
+size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_co41d"]
+size = Vector2(64, 64)
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 3
+script = ExtResource("1_dkx2d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["player"]]
+sprite_frames = SubResource("SpriteFrames_h4puk")
+autoplay = "default"
+frame_progress = 0.612922
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1.5)
+shape = SubResource("RectangleShape2D_xvjtb")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -20)
+limit_left = -190
+limit_top = -500
+limit_bottom = -150
+
+[node name="box_opener" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box_opener"]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_gis72")
+
+[node name="collect_range" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collect_range"]
+shape = SubResource("RectangleShape2D_co41d")
+
+[node name="Invul" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="agony" type="Timer" parent="."]
+wait_time = 2.0

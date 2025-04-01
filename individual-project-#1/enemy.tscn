@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://cf22phx7oks1h"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_leshp"]
+[ext_resource type="Texture2D" uid="uid://buyvrn2a1hehi" path="res://animations.png" id="1_py7fr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_843he"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8t50"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14be4"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3idp"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an5sl"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8debl"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5shk3"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w8q7"]
+atlas = ExtResource("1_py7fr")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hq50c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_843he")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8t50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14be4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3idp")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an5sl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8debl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5shk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w8q7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5shk3")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d71vf"]
+size = Vector2(50, 50)
+
+[node name="enemy" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_leshp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hq50c")
+animation = &"dead"
+autoplay = "walking"
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_d71vf")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -10)
+scale = Vector2(26.832, 15)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
